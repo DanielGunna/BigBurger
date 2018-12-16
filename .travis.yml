@@ -29,7 +29,10 @@ android:
   - extra
 
 script:
-- "./gradlew clean test build"
+          - "./gradlew clean test build"
+
+before_script:
+          - yes | sdkmanager "platforms;android-28"
 
 before_install:
           - yes | sdkmanager "platforms;android-28"
