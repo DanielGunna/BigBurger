@@ -21,7 +21,7 @@ public class SnackResponseFactory {
                 1,
                 "Snack",
                 Arrays.asList(new  Integer[]{1,2,3}),
-                "www.foo.com"
+                "www.foo.com","aaaaaaa"
         );
     }
 }

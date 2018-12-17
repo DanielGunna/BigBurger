@@ -1,4 +1,4 @@
-package com.gunna.bigburger.androidapp.ui.adapter;
+package com.gunna.bigburger.androidapp.ui.adapter.menu;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +13,9 @@ import java.util.List;
 public class SnackListAdapter extends RecyclerView.Adapter<SnackListAdapter.SnackViewHolder> {
 
     private List<Snack> mSnacksList;
-    private OnSelectSnackListItemListener mListener;
+    private OnClickSnackListItemListener mListener;
 
-    public SnackListAdapter(OnSelectSnackListItemListener mListener) {
+    public SnackListAdapter(OnClickSnackListItemListener mListener) {
         this.mListener = mListener;
         mSnacksList = new ArrayList<>();
     }
@@ -42,11 +42,19 @@ public class SnackListAdapter extends RecyclerView.Adapter<SnackListAdapter.Snac
         snackViewHolder.mBinding.getRoot().setOnClickListener(v ->
                 mListener.onSelectSnack(mSnacksList.get(position))
         );
+        snackViewHolder.mBinding.btnSee.setOnClickListener(v -> {
+            mListener.onSelectSnack(mSnacksList.get(position));
+        });
     }
 
     @Override
     public int getItemCount() {
         return mSnacksList.size();
+    }
+
+    public void clear() {
+        mSnacksList.clear();
+        notifyDataSetChanged();
     }
 
     class SnackViewHolder extends RecyclerView.ViewHolder {

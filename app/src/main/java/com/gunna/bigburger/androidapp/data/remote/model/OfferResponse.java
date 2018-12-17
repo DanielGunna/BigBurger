@@ -3,34 +3,26 @@ package com.gunna.bigburger.androidapp.data.remote.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+public class OfferResponse {
 
-public class SnackResponse {
     @SerializedName("id")
     @Expose
     private Integer id;
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("ingredients")
-    @Expose
-    private List<Integer> ingredients;
-    @SerializedName("image")
-    @Expose
-    private String image;
     @SerializedName("description")
     @Expose
     private String description;
 
-    public SnackResponse(Integer id, String name, List<Integer> ingredients, String image, String description) {
+    public OfferResponse(Integer id, String name, String description) {
         this.id = id;
         this.name = name;
-        this.ingredients = ingredients;
-        this.image = image;
         this.description = description;
     }
 
-    public SnackResponse() {
+
+    public OfferResponse() {
     }
 
     public Integer getId() {
@@ -47,22 +39,6 @@ public class SnackResponse {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Integer> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Integer> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getDescription() {

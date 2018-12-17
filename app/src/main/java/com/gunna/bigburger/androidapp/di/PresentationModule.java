@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import com.gunna.bigburger.androidapp.presentation.ViewModelFactory;
 import com.gunna.bigburger.androidapp.presentation.menu.MenuListViewModel;
+import com.gunna.bigburger.androidapp.presentation.offers.OffersViewModel;
 import dagger.Binds;
 import dagger.Module;
 
@@ -20,7 +21,10 @@ public abstract class PresentationModule {
     @ViewModelKey(MenuListViewModel.class)
     abstract ViewModel bindsSnackListViewModel(MenuListViewModel viewModel);
 
-
+    @Binds
+    @IntoMap
+    @ViewModelKey(OffersViewModel.class)
+    abstract ViewModel bindsOffersViewModel(OffersViewModel viewModel);
 
 
 }

@@ -1,7 +1,7 @@
-package com.gunna.bigburger.androidapp.domain.interactor;
+package com.gunna.bigburger.androidapp.domain.interactor.menu;
 
 import com.gunna.bigburger.androidapp.data.Result;
-import com.gunna.bigburger.androidapp.data.remote.repository.MenuListRepository;
+import com.gunna.bigburger.androidapp.data.remote.repository.menu.MenuListRepository;
 
 import com.gunna.bigburger.androidapp.domain.mapper.SnackMapper;
 import com.gunna.bigburger.androidapp.domain.model.Snack;

@@ -4,34 +4,35 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.gunna.bigburger.androidapp.app.RxJavaUtils;
-import com.gunna.bigburger.androidapp.databinding.FragmentMenuListBinding;
-import com.gunna.bigburger.androidapp.domain.model.Snack;
+import com.gunna.bigburger.androidapp.databinding.FragmentOffersBinding;
+import com.gunna.bigburger.androidapp.domain.model.Offer;
 import com.gunna.bigburger.androidapp.presentation.ViewState;
 import com.gunna.bigburger.androidapp.presentation.ViewStateEnum;
-import com.gunna.bigburger.androidapp.presentation.menu.MenuListViewModel;
+import com.gunna.bigburger.androidapp.presentation.offers.OffersViewModel;
 import com.gunna.bigburger.androidapp.ui.BaseFragment;
-import com.gunna.bigburger.androidapp.ui.adapter.menu.OnClickSnackListItemListener;
-import com.gunna.bigburger.androidapp.ui.adapter.menu.SnackListAdapter;
+import com.gunna.bigburger.androidapp.ui.adapter.offers.OffersAdapter;
 
 import java.util.List;
 
 import static com.gunna.bigburger.androidapp.presentation.ViewStateEnum.LOADING;
 
-public class MenuListFragment extends BaseFragment implements OnClickSnackListItemListener {
+public class OffersFragment extends BaseFragment {
 
-    private FragmentMenuListBinding mViewBinding;
-    private MenuListViewModel mViewModel;
-    private SnackListAdapter mSnacksAdapter;
+    private FragmentOffersBinding mViewBinding;
+    private OffersViewModel mViewModel;
+    private OffersAdapter mOffersAdapter;
     private ViewStateEnum mCurrentState;
 
-    public static MenuListFragment newInstance() {
+
+    public static OffersFragment newInstance() {
+
         Bundle args = new Bundle();
-        MenuListFragment fragment = new MenuListFragment();
+
+        OffersFragment fragment = new OffersFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,8 +40,8 @@ public class MenuListFragment extends BaseFragment implements OnClickSnackListIt
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mViewBinding = FragmentMenuListBinding.inflate(inflater, container, false);
-        mViewModel = ViewModelProviders.of(this, viewModelFactory).get(MenuListViewModel.class);
+        mViewBinding = FragmentOffersBinding.inflate(inflater, container, false);
+        mViewModel = ViewModelProviders.of(this, viewModelFactory).get(OffersViewModel.class);
         mViewBinding.setViewModel(mViewModel);
         setupList();
         setupSwipe();
@@ -49,33 +50,33 @@ public class MenuListFragment extends BaseFragment implements OnClickSnackListIt
 
     private void setupSwipe() {
         mViewBinding.swipe.setOnRefreshListener(() -> {
-            mSnacksAdapter.clear();
-            mViewModel.getSnacksList();
+            mOffersAdapter.clear();
+            mViewModel.getOffersList();
         });
     }
 
     private void setupList() {
-        mSnacksAdapter = new SnackListAdapter(this);
-        mViewBinding.listSnacks.setAdapter(mSnacksAdapter);
+        mOffersAdapter = new OffersAdapter();
+        mViewBinding.listOffers.setAdapter(mOffersAdapter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         if (!RxJavaUtils.hasSubscriptions(mSubscriptions)) {
-            addObserverSnackListState();
-            mViewModel.getSnacksList();
+            addObserverOffersListState();
+            mViewModel.getOffersList();
         }
     }
 
-    private void addObserverSnackListState() {
+    private void addObserverOffersListState() {
         mSubscriptions.add(mViewModel
-                .observeSnackListState()
-                .subscribe(this::handleSnackListState, this::handleErrors)
+                .observeOffersListState()
+                .subscribe(this::handleOffersListState, this::handleErrors)
         );
     }
 
-    private void handleSnackListState(ViewState<List<Snack>> listViewState) {
+    private void handleOffersListState(ViewState<List<Offer>> listViewState) {
         mCurrentState = listViewState.status;
         switch (listViewState.status) {
             case ERROR:
@@ -100,13 +101,9 @@ public class MenuListFragment extends BaseFragment implements OnClickSnackListIt
             mViewBinding.swipe.setRefreshing(false);
     }
 
-    private void setAdapterData(List<Snack> data) {
-        mSnacksAdapter.addData(data);
+    private void setAdapterData(List<Offer> data) {
+        mOffersAdapter.addData(data);
     }
 
 
-    @Override
-    public void onSelectSnack(Snack snack) {
-
-    }
 }

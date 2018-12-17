@@ -1,43 +1,41 @@
-package com.gunna.bigburger.androidapp.data.remote.repository;
+package com.gunna.bigburger.androidapp.data.remote.repository.offers;
 
 import android.accounts.NetworkErrorException;
-import com.gunna.bigburger.androidapp.app.RxJavaUtils;
-import com.gunna.bigburger.androidapp.data.remote.model.SnackResponse;
+import com.gunna.bigburger.androidapp.data.remote.model.OfferResponse;
 import com.gunna.bigburger.androidapp.data.remote.network.NetworkStatus;
-import com.gunna.bigburger.androidapp.data.remote.service.SnacksService;
+import com.gunna.bigburger.androidapp.data.remote.service.OffersService;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
 
 import javax.inject.Inject;
 import java.util.List;
 
-public class MenuListRepositoryImpl implements MenuListRepository {
-    private final SnacksService mService;
-    private final NetworkStatus mNetworkStatus;
+public class OffersRepositoryImpl implements OffersRepository {
+
+    private final OffersService mService;
     private final Scheduler mMainThreadScheduler;
-    private Scheduler mIoScheduler;
+    private final Scheduler mIoScheduler;
+    private final NetworkStatus mNetworkStatus;
 
     @Inject
-    public MenuListRepositoryImpl(SnacksService service,
-                                  NetworkStatus networkStatus,
-                                  Scheduler ioScheduler,
-                                  Scheduler mainScheduler) {
+    public OffersRepositoryImpl(OffersService service,
+                                NetworkStatus networkStatus,
+                                Scheduler ioScheduler,
+                                Scheduler mainScheduler) {
         this.mService = service;
         this.mNetworkStatus = networkStatus;
         this.mMainThreadScheduler = mainScheduler;
         this.mIoScheduler = ioScheduler;
     }
 
+
     @Override
-    public Flowable<List<SnackResponse>> getSnacksList() {
+    public Flowable<List<OfferResponse>> getOffers() {
         return mNetworkStatus.isOnline()
                 .observeOn(mMainThreadScheduler)
                 .flatMap(isOnline -> {
                             if (isOnline) {
-                                return mService.getSnacks()
+                                return mService.getOffers()
                                         .subscribeOn(mIoScheduler)
                                         .observeOn(mMainThreadScheduler);
                             } else {

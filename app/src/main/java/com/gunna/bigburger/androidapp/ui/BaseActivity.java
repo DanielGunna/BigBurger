@@ -47,8 +47,10 @@ public class BaseActivity extends AppCompatActivity {
     protected void setupToolbar(Toolbar toolbar, boolean isBack) {
         mToolbar = toolbar;
         if (mToolbar != null) {
-            mToolbar.setNavigationIcon(R.drawable.ic_back_18);
-            mToolbar.setNavigationOnClickListener(v -> onBackPressed());
+            if (isBack) {
+                mToolbar.setNavigationIcon(R.drawable.ic_back_18);
+                mToolbar.setNavigationOnClickListener(v -> onBackPressed());
+            }
             setSupportActionBar(mToolbar);
         }
     }

@@ -9,4 +9,6 @@
 	<string name="ok">Ok</string>
 	<string name="error_title">Erro</string>
 	<string name="unexpected_error">Algo inesperado ocorreu!</string>
+	<string name="msf_empty">Você ainda não possui informações aqui !</string>
+	<string name="see_details">Ver detalhes</string>
 </resources>

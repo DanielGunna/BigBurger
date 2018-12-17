@@ -2,6 +2,6 @@
     <dimen name="fab_margin">16dp</dimen>
 	<dimen name="dimen_item_snack_img_size">100dp</dimen>
 	<dimen name="item_snack_img_margin">8dp</dimen>
-	<dimen name="item_snack_snack_name_margin_top">32dp</dimen>
+	<dimen name="item_snack_snack_name_margin_top">16dp</dimen>
 	<dimen name="item_snack_snack_name_margin">8dp</dimen>
 </resources>

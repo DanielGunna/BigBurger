@@ -6,19 +6,29 @@ import org.parceler.Parcel;
 public class Snack {
     private String name;
     private String imageUrl;
+    private String description;
 
     public Snack() {
 
     }
 
-    public Snack(String name, String imageUrl) {
+    public Snack(String name, String imageUrl, String desc) {
         this.name = name;
         this.imageUrl = imageUrl;
+        this.description = desc;
     }
 
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setName(String name) {

@@ -21,10 +21,6 @@
 			fontPath="@string/font_bold"
 			android:icon="@drawable/ic_offer_36"
 			android:title="@string/menu_title_offer"/>
-		<item
-			android:id="@+id/nav_cart"
-			fontPath="@string/font_bold"
-			android:icon="@drawable/ic_cart_36"
-			android:title="@string/menu_title_cart"/>
+
 	</group>
 </menu>

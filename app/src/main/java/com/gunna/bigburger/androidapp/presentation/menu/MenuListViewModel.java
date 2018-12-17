@@ -1,7 +1,7 @@
 package com.gunna.bigburger.androidapp.presentation.menu;
 
 
-import com.gunna.bigburger.androidapp.domain.interactor.MenuListInteractor;
+import com.gunna.bigburger.androidapp.domain.interactor.menu.MenuListInteractor;
 import com.gunna.bigburger.androidapp.domain.model.Snack;
 import com.gunna.bigburger.androidapp.presentation.BaseViewModel;
 import com.gunna.bigburger.androidapp.presentation.ViewState;

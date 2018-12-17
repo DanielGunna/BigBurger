@@ -13,13 +13,17 @@ import com.gunna.bigburger.androidapp.R;
 import com.gunna.bigburger.androidapp.databinding.ActivityMainBinding;
 import com.gunna.bigburger.androidapp.ui.BaseActivity;
 import com.gunna.bigburger.androidapp.ui.fragments.MenuListFragment;
+import com.gunna.bigburger.androidapp.ui.fragments.OffersFragment;
 
 import static com.gunna.bigburger.androidapp.app.Constants.FRAGMENT_MENU_TAG;
+import static com.gunna.bigburger.androidapp.app.Constants.FRAGMENT_OFFER_TAG;
 import static com.gunna.bigburger.androidapp.ui.activity.MainSelectedStateEnum.MENU;
 import static com.gunna.bigburger.androidapp.ui.activity.MainSelectedStateEnum.NONE;
+import static com.gunna.bigburger.androidapp.ui.activity.MainSelectedStateEnum.OFFERS;
 
 public class MainActivity extends BaseActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
+
 
 
     private ActivityMainBinding mViewBinding;
@@ -29,8 +33,14 @@ public class MainActivity extends BaseActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        setupToolbar(mViewBinding.toolbarBinding.toolbar, true);
+        setupToolbar(mViewBinding.toolbarBinding.toolbar, false);
         setupBottomNavigation();
+        checkSelection(savedInstanceState);
+    }
+
+    private void checkSelection(Bundle savedInstanceState) {
+        if(savedInstanceState == null)
+            onSelectMenu();
     }
 
     private void setupBottomNavigation() {
@@ -39,20 +49,10 @@ public class MainActivity extends BaseActivity
 
 
     private void replaceFragment(Fragment fragment, String tag) {
-//        if (getSupportFragmentManager().findFragmentByTag(tag) == null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//            ft.setCustomAnimations(getEnterAnimation(tag), getExitAnimation(tag));
-            ft.replace(R.id.fragmentContainer, fragment, tag);
-            ft.commit();
-//        }
-    }
-
-    private int getExitAnimation(String tag) {
-        return 0;
-    }
-
-    private int getEnterAnimation(String tag) {
-        return 0;
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+        ft.replace(R.id.fragmentContainer, fragment, tag);
+        ft.commit();
     }
 
 
@@ -62,9 +62,8 @@ public class MainActivity extends BaseActivity
             case R.id.nav_menu:
                 onSelectMenu();
                 break;
-            case R.id.nav_cart:
-                break;
             case R.id.nav_offers:
+                onSelectOffers();
                 break;
             case R.id.nav_orders:
                 break;
@@ -72,8 +71,17 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
+    private void onSelectOffers() {
+        if (mCurrentSelection != OFFERS) {
+            replaceFragment(OffersFragment.newInstance(), FRAGMENT_OFFER_TAG);
+            mCurrentSelection = OFFERS;
+        }
+    }
+
     private void onSelectMenu() {
-        replaceFragment(MenuListFragment.newInstance(), FRAGMENT_MENU_TAG);
-        mCurrentSelection = MENU;
+        if (mCurrentSelection != MENU) {
+            replaceFragment(MenuListFragment.newInstance(), FRAGMENT_MENU_TAG);
+            mCurrentSelection = MENU;
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.gunna.bigburger.androidapp.data.remote.repository;
+package com.gunna.bigburger.androidapp.data.remote.repository.menu;
 
 import io.reactivex.Flowable;
 import com.gunna.bigburger.androidapp.data.remote.model.SnackResponse;

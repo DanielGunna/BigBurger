@@ -14,6 +14,7 @@ public class SnackMapper {
         if (snackResponse != null) {
             snack.setName(snackResponse.getName());
             snack.setImageUrl(snackResponse.getImage());
+            snack.setDescription(snackResponse.getDescription());
         }
         return snack;
     }
