@@ -2,8 +2,10 @@ package com.gunna.bigburger.androidapp.di;
 
 import com.gunna.bigburger.androidapp.data.remote.factory.ServiceFactory;
 import com.gunna.bigburger.androidapp.data.remote.factory.ServiceFactoryImpl;
+import com.gunna.bigburger.androidapp.data.remote.network.NetworkStatus;
+import com.gunna.bigburger.androidapp.data.remote.network.NetworkStatusImpl;
 import com.gunna.bigburger.androidapp.data.remote.repository.SnackRepositoryImpl;
-import com.gunna.bigburger.androidapp.data.remote.repository.SnacksRepository;
+import com.gunna.bigburger.androidapp.data.remote.repository.MenuListRepository;
 import com.gunna.bigburger.androidapp.data.remote.service.SnacksService;
 import dagger.Module;
 import dagger.Provides;
@@ -27,8 +29,14 @@ public class DataModule {
 
     @Singleton
     @Provides
-    SnacksRepository providesSnackRepository(SnacksService service) {
-        return new SnackRepositoryImpl(service);
+    MenuListRepository providesSnackRepository(SnacksService service, NetworkStatus networkStatus) {
+        return new SnackRepositoryImpl(service, networkStatus);
+    }
+
+    @Singleton
+    @Provides
+    NetworkStatus providesNetworkStatus() {
+        return new NetworkStatusImpl();
     }
 
 

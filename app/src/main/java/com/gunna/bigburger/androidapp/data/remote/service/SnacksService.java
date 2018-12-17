@@ -11,5 +11,4 @@ public interface SnacksService {
 
     @GET(Constants.Services.GET_SNACKS)
     Flowable<List<SnackResponse>> getSnacks();
-
 }

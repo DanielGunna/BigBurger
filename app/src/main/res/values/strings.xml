@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">BigBurger</string>
+	<string name="font_bold">fonts/Product-Sans-Bold.ttf</string>
     <string name="action_settings">Settings</string>
+	<string name="menu_title_menu">Cardápio</string>
+	<string name="menu_title_orders">Pedidos</string>
+	<string name="menu_title_offer">Promoções</string>
+	<string name="menu_title_cart">Carrinho</string>
+	<string name="ok">Ok</string>
+	<string name="error_title">Erro</string>
+	<string name="unexpected_error">Algo inesperado ocorreu!</string>
 </resources>

@@ -29,5 +29,13 @@ public class ViewState<T> {
         return new ViewState<>(null, t, ERROR);
     }
 
+    public static <R> ViewState<R> getLoading() {
+        return new ViewState<>(null, null, LOADING);
+    }
+
+    public static <R> ViewState<R> getError(Throwable t) {
+        return new ViewState<>(null, t, ERROR);
+    }
+
 
 }

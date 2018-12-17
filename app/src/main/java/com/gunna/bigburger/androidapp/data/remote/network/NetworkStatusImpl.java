@@ -23,6 +23,7 @@ public class NetworkStatusImpl implements NetworkStatus {
                         sock.close();
                         emitter.onNext(true);
                     } catch (Exception e) {
+                        e.printStackTrace();
                         emitter.onNext(false);
                     }
                     emitter.onComplete();
