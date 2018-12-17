@@ -8,8 +8,10 @@
 		android:layout_width="match_parent">
 
 
-		<include android:id="@+id/toolbarBinding"
-				 layout="@layout/partial_toolbar"/>
+		<include
+
+			android:id="@+id/toolbarBinding"
+			layout="@layout/partial_toolbar"/>
 
 		<FrameLayout
 			android:id="@+id/fragmentContainer"
@@ -18,7 +20,7 @@
 			app:layout_constraintBottom_toTopOf="@id/bottom_nav_view"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+			app:layout_constraintTop_toBottomOf="@id/toolbarBinding"/>
 
 		<android.support.design.widget.BottomNavigationView
 			android:id="@+id/bottom_nav_view"

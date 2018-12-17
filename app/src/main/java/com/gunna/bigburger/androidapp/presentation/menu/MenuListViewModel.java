@@ -16,6 +16,7 @@ import java.util.List;
 public class MenuListViewModel extends BaseViewModel {
 
     private final PublishSubject<ViewState<List<Snack>>> mSnackListState = PublishSubject.create();
+
     private final MenuListInteractor mInteractor;
     private Disposable mGetSnackSubscription;
 
@@ -40,6 +41,8 @@ public class MenuListViewModel extends BaseViewModel {
                         () -> mSnackListState.onNext(ViewState.getLoading())
                 );
     }
+
+
 
 
 }

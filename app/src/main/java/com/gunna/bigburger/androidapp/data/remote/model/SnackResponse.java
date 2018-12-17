@@ -19,6 +19,16 @@ public class SnackResponse {
     @Expose
     private String image;
 
+    public SnackResponse(Integer id, String name, List<Integer> ingredients, String image) {
+        this.id = id;
+        this.name = name;
+        this.ingredients = ingredients;
+        this.image = image;
+    }
+
+    public SnackResponse() {
+    }
+
     public Integer getId() {
         return id;
     }

@@ -6,29 +6,40 @@ import com.gunna.bigburger.androidapp.data.remote.model.SnackResponse;
 import com.gunna.bigburger.androidapp.data.remote.network.NetworkStatus;
 import com.gunna.bigburger.androidapp.data.remote.service.SnacksService;
 import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 
 import javax.inject.Inject;
 import java.util.List;
 
-public class SnackRepositoryImpl implements MenuListRepository {
+public class MenuListRepositoryImpl implements MenuListRepository {
     private final SnacksService mService;
     private final NetworkStatus mNetworkStatus;
+    private final Scheduler mMainThreadScheduler;
+    private Scheduler mIoScheduler;
 
     @Inject
-    public SnackRepositoryImpl(SnacksService service, NetworkStatus networkStatus) {
+    public MenuListRepositoryImpl(SnacksService service,
+                                  NetworkStatus networkStatus,
+                                  Scheduler ioScheduler,
+                                  Scheduler mainScheduler) {
         this.mService = service;
         this.mNetworkStatus = networkStatus;
+        this.mMainThreadScheduler = mainScheduler;
+        this.mIoScheduler = ioScheduler;
     }
 
     @Override
     public Flowable<List<SnackResponse>> getSnacksList() {
         return mNetworkStatus.isOnline()
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(mMainThreadScheduler)
                 .flatMap(isOnline -> {
                             if (isOnline) {
                                 return mService.getSnacks()
-                                        .compose(RxJavaUtils.applySchedulers(false));
+                                        .subscribeOn(mIoScheduler)
+                                        .observeOn(mMainThreadScheduler);
                             } else {
                                 return Flowable.error(new NetworkErrorException());
                             }
